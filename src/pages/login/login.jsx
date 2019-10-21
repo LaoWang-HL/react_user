@@ -26,7 +26,11 @@ const {getFieldDecorator} = this.props.form
         <Form.Item>
       
         {getFieldDecorator('username', {
-          rules: [{ required: true, message: 'Please input your username!' }],
+          rules: [{ required: true, message: '用户名必须输入' },
+          {max:14,message:'输入最大长度为14'},
+          {min:4,message:'输入最小长度为4'}
+         
+                  ],
         })(
           <Input
             prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -36,11 +40,17 @@ const {getFieldDecorator} = this.props.form
         
         </Form.Item>
         <Form.Item>
-           <Input
+        {getFieldDecorator('password', {
+          rules: [{ required: true, message: '密码必须输入' },
+          {max:14,message:'输入最大长度为14'},
+          {min:4,message:'输入最小长度为4'}
+         
+                  ],
+        })(<Input
              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
              type="password"
              placeholder="Password"
-           />
+           />)}
         </Form.Item>
           <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
