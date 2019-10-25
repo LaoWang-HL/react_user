@@ -10,9 +10,7 @@ import history from './history'
  */
 class App extends Component {
 
-  handleClick = () => {
-    message.success('成功啦...');
-  }
+ 
 
 render() {     
     return (

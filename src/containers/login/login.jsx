@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 import { Form, Icon, Input, Button } from 'antd'
 
 import { connect } from 'react-redux'
-
+import WithCheckLogin from '../with-check-login'
 import {loginAsync} from '../../redux/actions-creators/user'
 import logo from './images/logo.png'
 import './login.less'
@@ -17,6 +17,7 @@ const { Item } = Form
   {loginAsync} 
 )
 @Form.create()   
+@WithCheckLogin
 class Login extends Component {
 
   handleSubmit = (event) => {

@@ -4,14 +4,18 @@ import {withRouter} from 'react-router-dom'  // 高阶组件, 用来包装非路
 import dayjs from 'dayjs'
 import format from 'date-fns/format'
 import { removeUserToken } from '../../../redux/actions-creators/user'
-
+import {Modal,Button,Icon} from 'antd'
 import LinkButton from '../../../components/link-button'
 
 import './index.less'
+
 /* 
 管理界面的头部组件
 */
-@connect(state => ({username: state.user.user.username,user:state.user.user,token:state.user.token}),{removeUserToken})
+@connect(
+  state => ({username: state.user.user.username}),
+  {removeUserToken}
+)
 @withRouter  // 向组件内部传入3个属性: history/location/match
 class Header extends Component {
 
@@ -21,7 +25,15 @@ class Header extends Component {
   }
 
   logout = () => {
-    this.props.removeUserToken()
+    Modal.confirm({
+      title: '确认退出吗?',
+      onOk: () => {
+        this.props.removeUserToken()
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    })
   }
 
 
