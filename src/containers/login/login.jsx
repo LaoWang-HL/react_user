@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import { Form, Icon, Input, Button } from 'antd'
-import qs from 'qs'
+
 import { connect } from 'react-redux'
 
 import {loginAsync} from '../../redux/actions-creators/user'

@@ -2,9 +2,10 @@ import React,{ Component } from 'react'
 import { Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {removeUserToken} from '../../redux/actions-creators/user'
-
-
-
+import { Layout } from "antd";
+import LeftNav from './left-nav'
+import AdminHeader from './header'
+const { Header, Footer, Sider, Content } = Layout
 
 class Admin extends Component {
   logout=()=>{
@@ -16,13 +17,18 @@ class Admin extends Component {
       return <Redirect to='/login'/>
     }
     return (
-      <div>
-      <p>Hello, {this.props.user.username}</p>
-
-      <button onClick={this.logout}>退出登陆</button>
-
-
-    </div>
+      <Layout style={{height:'100%'}}>
+      <Sider>
+         <LeftNav></LeftNav>
+      </Sider>
+      <Layout>
+        
+          <AdminHeader/>
+        
+        <Content>Content</Content>
+        <Footer>Footer</Footer>
+      </Layout>
+    </Layout>
     )
   }
 }
