@@ -53,3 +53,21 @@ export const reqProducts=(pageNum,pageSize)=>ajax({
     pageSize
   }
 })
+
+
+
+
+
+export const reqSearchProducts=({
+  pageNum, 
+  pageSize, 
+  searchType, // 搜索类型名称  'productName' / 'productDesc'
+  searchName, // 搜索的关键字
+})=>ajax({
+  url:'/manage/product/search',
+  params:{
+    pageNum,
+    pageSize,
+    [searchType]:searchName
+  }
+})

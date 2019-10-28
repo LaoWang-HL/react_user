@@ -15,6 +15,8 @@ import Line from '../../components/charts/line'
 import Bar from '../../components/charts/bar'
 import Pie from '../../components/charts/pie'
 import WithCheckLogin from '../with-check-login';
+import ProductDetail from '../product/detail'
+import ProductAddUpdate from '../product/add-update'
 const { Header, Footer, Sider, Content } = Layout
 
 @WithCheckLogin
@@ -41,6 +43,8 @@ class Admin extends Component {
             <Route path="/charts/line" component={Line}/>
             <Route path="/charts/bar" component={Bar}/>
             <Route path="/charts/pie" component={Pie}/>
+            <Route path="/product/detail/:id" component={ProductDetail} exact/>
+            <Route path="/product/addupdate" component={ProductAddUpdate} exact/>
             <Redirect to="/home"/>
         </Switch>
          </Content>
