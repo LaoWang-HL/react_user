@@ -53,11 +53,6 @@ export const reqProducts=(pageNum,pageSize)=>ajax({
     pageSize
   }
 })
-
-
-
-
-
 export const reqSearchProducts=({
   pageNum, 
   pageSize, 
@@ -69,5 +64,33 @@ export const reqSearchProducts=({
     pageNum,
     pageSize,
     [searchType]:searchName
+  }
+})
+
+export const reqUpdateProductStatus=(productId,status)=>ajax({
+  url:'/manage/product/updateStatus',
+  method:'POST',
+  data:{
+    productId,
+    status
+  }
+})
+
+export const reqProductById=(id)=>ajax({
+  url:'/manage/product/info',
+  params:{productId:id}
+})
+
+export const reqAddUpdateProduct=(product)=>ajax.post(
+  '/manage/product/' + (product._id ? 'update' : 'add'),
+  product
+)
+
+ 
+
+export const reqCategory = (id) => ajax({
+  url: '/manage/category/info',
+  params: {
+    categoryId: id
   }
 })

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {Card, Select, Input, Button, Icon, Table} from 'antd'
-import {reqProducts,reqSearchProducts} from '../../api'
+import {Card, Select, Input, Button, Icon, Table, message} from 'antd'
+import {reqProducts,reqSearchProducts, reqUpdateProductStatus} from '../../api'
 import {PAGE_SIZE} from '../../config'
-
+import memoryUtils from '../../urils/memory'
 const {Option}=Select
 export default class Product extends Component {
 
@@ -30,25 +30,70 @@ export default class Product extends Component {
     {
       width: 100,
       title: '状态',
-      dataIndex: 'status',
-      render: (price) => (
-        <span>
-          <Button type="primary">下架</Button>
-          <span>在售</span>
-        </span>
-      )
+      // dataIndex: 'status',
+      render: ({_id,status}) => {
+        let btnText='下架'
+        let text='在售'
+        
+        if (status===2) {
+          btnText='上架'
+          text='已下架'
+        }
+        return (
+          <span>
+            <Button 
+               type='primary'
+               onClick={()=>{
+                 
+                return this.updateStatus(_id,status===1?2:1)
+                }}            
+            >{btnText}</Button>
+             <span>{text}</span>
+          </span>
+        )
+      }
+
     },
     {
       width: 100,
       title: '操作',
       render: (product) => (
         <span>
-          <Button type="link">详情</Button>
-          <Button type="link">修改</Button>
+          <Button type="link" onClick={()=>{
+            memoryUtils.product=product
+            this.props.history.push(`/product/detail/${product._id}`)
+          }}>详情</Button>
+          <Button type="link" onClick={()=>{
+            memoryUtils.product=product
+            this.props.history.push(`/product/addupdate`)
+          }}>修改</Button>
         </span>
       )
     },
   ]
+
+  updateStatus= async (id,status)=>{
+    const result =await reqUpdateProductStatus(id,status)
+    console.log(result)
+    if (result.status===0) {
+      message.success('更新状态成功')
+     
+      let products=this.state.products
+      products=products.map(item=>{
+        if (item._id===id) {
+          
+           return {...item,status}
+        } else{
+          return item
+        }
+      })
+      this.setState({
+        products
+      })
+    }else{
+      message.error(result.msg)
+    }
+  }
 
   getProducts= async (pageNum)=>{
     let result
@@ -102,7 +147,10 @@ export default class Product extends Component {
     )
 
     const extra=(
-      <Button type='primary'>
+      <Button type='primary' onClick={()=>{
+        memoryUtils.product={}
+        this.props.history.push('/product/addupdate')
+      }}>
         <Icon type="plus"></Icon>
           添加商品
       </Button>

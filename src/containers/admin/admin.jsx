@@ -37,7 +37,7 @@ class Admin extends Component {
           <Switch>
             <Route path="/home" component={Home}/>
             <Route path="/category" component={Category}/>
-            <Route path="/product" component={Product}/>
+            <Route path="/product" component={Product} exact/>
             <Route path="/role" component={Role}/>
             <Route path="/user" component={User}/>
             <Route path="/charts/line" component={Line}/>
